@@ -1,0 +1,21 @@
+﻿using ShoesApp.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ShoesApp.Intefaces
+{
+    public interface IFootwear
+    {
+        int ID { get; set; }
+        string Sku { get; set; }
+        string Name { get; set; }
+        string Color { get; set; }
+        decimal Price { get; set; }
+        IProducer Producer { get; set; }
+        FootwearType Type { get; set; }
+
+    }
+}
