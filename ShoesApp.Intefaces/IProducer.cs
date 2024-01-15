@@ -1,4 +1,4 @@
-﻿namespace ShoesApp.Intefaces
+﻿namespace INF148151_148140.ShoesApp.Intefaces
 {
     public interface IProducer
     {

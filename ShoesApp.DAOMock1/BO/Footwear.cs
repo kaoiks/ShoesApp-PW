@@ -1,8 +1,8 @@
-﻿using ShoesApp.Core;
-using ShoesApp.Intefaces;
+﻿using INF148151_148140.ShoesApp.Core;
+using INF148151_148140.ShoesApp.Intefaces;
 
 
-namespace ShoesApp.DAOMock1.BO
+namespace INF148151_148140.ShoesApp.DAOMock1.BO
 {
     public class Footwear : IFootwear
     {

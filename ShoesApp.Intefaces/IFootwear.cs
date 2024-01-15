@@ -1,11 +1,11 @@
-﻿using ShoesApp.Core;
+﻿using INF148151_148140.ShoesApp.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesApp.Intefaces
+namespace INF148151_148140.ShoesApp.Intefaces
 {
     public interface IFootwear
     {

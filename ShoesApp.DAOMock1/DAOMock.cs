@@ -1,12 +1,12 @@
-﻿using ShoesApp.Core;
-using ShoesApp.Intefaces;
+﻿using INF148151_148140.ShoesApp.Core;
+using INF148151_148140.ShoesApp.Intefaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesApp.DAOMock1
+namespace INF148151_148140.ShoesApp.DAOMock1
 {
     public class DAOMock : IDAO
     {
@@ -68,24 +68,24 @@ namespace ShoesApp.DAOMock1
             };
         }
 
-        public IFootwear AddFootwear()
+        public void AddFootwear(IFootwear footwear)
         {
-            return new BO.Footwear();
+            throw new NotImplementedException();
         }
 
-        public IProducer AddProducer()
+        public void AddProducer(IProducer producer)
         {
-            return new BO.Producer();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IFootwear> GetAllFootwear()
         {
-            return footwearList;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IProducer> GetAllProducers()
         {
-            return producerList;
+            throw new NotImplementedException();
         }
 
         public IFootwear GetFootwear(int id)
@@ -98,17 +98,17 @@ namespace ShoesApp.DAOMock1
             throw new NotImplementedException();
         }
 
-        public void RemoveFootwear(IFootwear footwear)
+        public void RemoveFootwear(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveProducer(IProducer producer)
+        public void RemoveProducer(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateFootwear(IFootwear footwear)
+        public void UpdateFootwear(IProducer producer)
         {
             throw new NotImplementedException();
         }

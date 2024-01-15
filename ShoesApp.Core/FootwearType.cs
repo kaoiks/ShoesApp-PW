@@ -1,4 +1,4 @@
-﻿namespace ShoesApp.Core
+﻿namespace INF148151_148140.ShoesApp.Core
 {
     public enum FootwearType
     {

@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesApp.Intefaces
+namespace INF148151_148140.ShoesApp.Intefaces
 {
     public interface IDAO
     {
-        IFootwear AddFootwear();
-        IProducer AddProducer();
-        void RemoveFootwear(IFootwear footwear);
-        void RemoveProducer(IProducer producer);
+        IFootwear CreateFootwear();
+        IProducer CreateProducer();
+        void AddFootwear(IFootwear footwear);
+        void AddProducer(IProducer producer);
+        void RemoveFootwear(int id);
+        void RemoveProducer(int id);
         void UpdateFootwear(IFootwear footwear);
         void UpdateProducer(IProducer producer);
         IFootwear GetFootwear(int id);
