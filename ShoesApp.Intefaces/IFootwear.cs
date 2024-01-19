@@ -9,7 +9,7 @@ namespace INF148151_148140.ShoesApp.Intefaces
 {
     public interface IFootwear
     {
-        int ID { get; set; }
+        int Id { get; set; }
         string Sku { get; set; }
         string Name { get; set; }
         string Color { get; set; }

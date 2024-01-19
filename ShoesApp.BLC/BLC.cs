@@ -4,84 +4,102 @@ using System.Reflection;
 
 namespace INF148151_148140.ShoesApp.BLC
 {
-    public class BLC
-    {
-        private IDAO dao;
+	public class BLC
+	{
+		private static BLC instance;
+		private static readonly object lockObject = new object();
 
-        public BLC(string libraryName)
-        {
-            Type? typeToCreate = null;
+		private IDAO dao;
 
-            Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
-            Debug.WriteLine(assembly.FullName);
-            foreach (Type type in assembly.GetTypes())
-            {
-                if (type.IsAssignableTo(typeof(IDAO)))
-                {
-                    typeToCreate = type;
-                    break;
-                }
-            }
+		private BLC(string libraryName)
+		{
+			Type? typeToCreate = null;
 
-            dao = (IDAO)Activator.CreateInstance(typeToCreate, null);
-        }
+			Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
+			Debug.WriteLine(assembly.FullName);
+			foreach (Type type in assembly.GetTypes())
+			{
+				if (type.IsAssignableTo(typeof(IDAO)))
+				{
+					typeToCreate = type;
+					break;
+				}
+			}
 
-        public IEnumerable<IFootwear> GetAllFootwear()
-        {
-            return dao.GetAllFootwear();
-        }
+			dao = (IDAO)Activator.CreateInstance(typeToCreate, null);
+		}
 
-        public IEnumerable<IProducer> GetAllProducers()
-        {
-            return dao.GetAllProducers();
-        }
+		public static BLC GetInstance(string libraryName)
+		{
+			if (instance == null)
+			{
+				lock (lockObject)
+				{
+					if (instance == null)
+					{
+						instance = new BLC(libraryName);
+					}
+				}
+			}
+			return instance;
+		}
 
-        public IFootwear GetFootwear(int id)
-        {
-            return dao.GetFootwear(id);
-        }
-        public IProducer GetProducer(int id)
-        {
-            return dao.GetProducer(id);
-        }
+		public IEnumerable<IFootwear> GetAllFootwear()
+		{
+			return dao.GetAllFootwear();
+		}
 
-        public void AddFootwear(IFootwear footwear)
-        {
-            dao.AddFootwear(footwear);
-        }
+		public IEnumerable<IProducer> GetAllProducers()
+		{
+			return dao.GetAllProducers();
+		}
 
-        public IProducer CreateProducer()
-        {
-            return dao.CreateProducer();
-        }
-        public IFootwear CreateFootwear()
-        {
-            return dao.CreateFootwear();
-        }
+		public IFootwear GetFootwear(int id)
+		{
+			return dao.GetFootwear(id);
+		}
+		public IProducer GetProducer(int id)
+		{
+			return dao.GetProducer(id);
+		}
 
-        public void AddProducer(IProducer producer)
-        {
-            dao.AddProducer(producer);
-        }
+		public void AddFootwear(IFootwear footwear)
+		{
+			dao.AddFootwear(footwear);
+		}
 
-        public void UpdateFootwear(IFootwear footwear)
-        {
-            dao.UpdateFootwear(footwear);
-        }
+		public IProducer CreateProducer()
+		{
+			return dao.CreateProducer();
+		}
+		public IFootwear CreateFootwear()
+		{
+			return dao.CreateFootwear();
+		}
 
-        public void UpdateProducer(IProducer producer)
-        {
-            dao.UpdateProducer(producer);
-        }
+		public void AddProducer(IProducer producer)
+		{
+			dao.AddProducer(producer);
+		}
 
-        public void DeleteProducer(int id)
-        {
-            dao.RemoveProducer(id);
-        }
-        public void DeleteFootwear(int id)
-        {
-            dao.RemoveFootwear(id);
-        }
+		public void UpdateFootwear(IFootwear footwear)
+		{
+			dao.UpdateFootwear(footwear);
+		}
 
-    }
+		public void UpdateProducer(IProducer producer)
+		{
+			dao.UpdateProducer(producer);
+		}
+
+		public void DeleteProducer(int id)
+		{
+			dao.RemoveProducer(id);
+		}
+		public void DeleteFootwear(int id)
+		{
+			dao.RemoveFootwear(id);
+		}
+
+	}
 }

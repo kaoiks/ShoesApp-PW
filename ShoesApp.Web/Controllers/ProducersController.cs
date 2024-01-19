@@ -1,35 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using INF148151_148140.ShoesApp.BLC;
-using INF148151_148140.ShoesApp.Intefaces;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace INF148151_148140.ShoesApp.Web.Controllers
 {
     public class ProducersController : Controller
     {
-        private BLC.BLC blc { get; set; }
+        private readonly BLC.BLC _blc;
 
         public ProducersController()
         {
-            string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
-            blc = new BLC.BLC(libraryName);
+            _blc = BLC.BLC.GetInstance(libraryName);
         }
 
         // GET: Producers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(blc.GetAllProducers());
+            return View(_blc.GetAllProducers());
         }
         // GET: Producers/Details/5
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var producer = blc.GetProducer(id);
+            var producer = _blc.GetProducer(id);
             if (producer == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -46,14 +37,14 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         // POST: Producers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(IFormCollection collection)
         {
             try
             {
-                var producer = blc.CreateProducer();
+                var producer = _blc.CreateProducer();
                 producer.Name = collection["Name"];
                 producer.Country = collection["Country"];
-                blc.AddProducer(producer);
+                _blc.AddProducer(producer);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -62,9 +53,9 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
             }
         }
         // GET: Producers/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var producer = blc.GetProducer(id);
+            var producer = _blc.GetProducer(id);
             if (producer == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -75,19 +66,19 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         // POST: Producers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
 
             try
             {
-                var producer = blc.GetProducer(id);
+                var producer = _blc.GetProducer(id);
                 if (producer == null)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 producer.Name = collection["Name"];
                 producer.Country = collection["Country"];
-                blc.UpdateProducer(producer);
+                _blc.UpdateProducer(producer);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -98,9 +89,9 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         }
 
         // GET: Producers/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var producer = blc.GetProducer(id);
+            var producer = _blc.GetProducer(id);
             if (producer == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -111,9 +102,9 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         // POST: Producers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            blc.DeleteProducer(id);
+            _blc.DeleteProducer(id);
             return RedirectToAction(nameof(Index));
         }
 

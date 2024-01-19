@@ -17,17 +17,17 @@ namespace INF148151_148140.ShoesApp.DAOMock1
         {
             producerList = new List<IProducer>()
             {
-                new BO.Producer() { ID = 1, Name = "Nike", Country = "USA" },
-                new BO.Producer() { ID = 2, Name = "Adidas", Country = "Germany" },
-                new BO.Producer() { ID = 3, Name = "Puma", Country = "Germany" },
-                new BO.Producer() { ID = 4, Name = "Reebok", Country = "USA" },
-                new BO.Producer() { ID = 5, Name = "Asics", Country = "Japan" },
+                new BO.Producer() { Id = 1, Name = "Nike", Country = "USA" },
+                new BO.Producer() { Id = 2, Name = "Adidas", Country = "Germany" },
+                new BO.Producer() { Id = 3, Name = "Puma", Country = "Germany" },
+                new BO.Producer() { Id = 4, Name = "Reebok", Country = "USA" },
+                new BO.Producer() { Id = 5, Name = "Asics", Country = "Japan" },
             };
             footwearList = new List<IFootwear>()
             {
                 new BO.Footwear()
                 {
-                    ID = 1,
+                    Id = 1,
                     Sku = "DJ6188-101",
                     Name = "Dunk Low 'Reverse Panda'",
                     Color = "White/Black",
@@ -37,7 +37,7 @@ namespace INF148151_148140.ShoesApp.DAOMock1
                 },
                 new BO.Footwear()
                 {
-                    ID = 2,
+                    Id = 2,
                     Sku = "GY7386",
                     Name = "Bermuda 'Glow Pink'",
                     Color = "Pink",
@@ -47,7 +47,7 @@ namespace INF148151_148140.ShoesApp.DAOMock1
                 },
                 new BO.Footwear()
                 {
-                    ID = 3,
+                    Id = 3,
                     Sku = "FX4298",
                     Name = "Yeezy Boost 350 V2 'Linen'",
                     Color = "Beige",
@@ -57,7 +57,7 @@ namespace INF148151_148140.ShoesApp.DAOMock1
                 },
                 new BO.Footwear()
                 {
-                    ID = 4,
+                    Id = 4,
                     Sku = "1201A019-108",
                     Name = "Gel Kayano 14 'Silver Cream",
                     Color = "Silver",
@@ -70,52 +70,80 @@ namespace INF148151_148140.ShoesApp.DAOMock1
 
         public void AddFootwear(IFootwear footwear)
         {
-            throw new NotImplementedException();
+            var footwear_element = new BO.Footwear()
+            {
+                Id = footwearList.Max(f => f.Id) + 1,
+                Sku = footwear.Sku,
+                Name = footwear.Name,
+                Color = footwear.Color,
+                Price = footwear.Price,
+                Producer = footwear.Producer,
+                Type = footwear.Type
+            };
+            footwearList.Add(footwear_element);
         }
 
         public void AddProducer(IProducer producer)
         {
-            throw new NotImplementedException();
+            var producer_element = new BO.Producer()
+            {
+                Id = producerList.Max(p => p.Id) + 1,
+                Name = producer.Name,
+                Country = producer.Country
+            };
+            producerList.Add(producer_element);
+        }
+
+        public IFootwear CreateFootwear()
+        {
+            return new BO.Footwear();
+        }
+
+        public IProducer CreateProducer()
+        {
+            return new BO.Producer();
         }
 
         public IEnumerable<IFootwear> GetAllFootwear()
         {
-            throw new NotImplementedException();
+            return footwearList;
         }
 
         public IEnumerable<IProducer> GetAllProducers()
         {
-            throw new NotImplementedException();
+            return producerList;
         }
 
         public IFootwear GetFootwear(int id)
         {
-            throw new NotImplementedException();
+            return footwearList.FirstOrDefault(f => f.Id == id);
         }
 
         public IProducer GetProducer(int id)
         {
-            throw new NotImplementedException();
+            return producerList.FirstOrDefault(p => p.Id == id);
         }
 
         public void RemoveFootwear(int id)
         {
-            throw new NotImplementedException();
+            footwearList.Remove(footwearList.FirstOrDefault(f => f.Id == id));
         }
 
         public void RemoveProducer(int id)
         {
-            throw new NotImplementedException();
+            producerList.Remove(producerList.FirstOrDefault(p => p.Id == id));
         }
 
-        public void UpdateFootwear(IProducer producer)
+        public void UpdateFootwear(IFootwear footwear)
         {
-            throw new NotImplementedException();
+            footwearList.Remove(footwearList.FirstOrDefault(f => f.Id == footwear.Id));
+            footwearList.Add(footwear);
         }
 
         public void UpdateProducer(IProducer producer)
         {
-            throw new NotImplementedException();
+            producerList.Remove(producerList.FirstOrDefault(p => p.Id == producer.Id));
+            producerList.Add(producer);
         }
     }
 }

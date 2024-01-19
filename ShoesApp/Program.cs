@@ -15,13 +15,13 @@ namespace INF148151_148140.ShoesApp
             //blc.AddFootwear(new IFootwear(2, "Nike", blc.GetProducer(2), FootwearType.Sport));
             foreach (IProducer p in blc.GetAllProducers())
             {
-                Console.WriteLine($"{p.ID}: {p.Name} ");
+                Console.WriteLine($"{p.Id}: {p.Name} ");
             }
             Console.WriteLine("----------------------");
 
             foreach (IFootwear f in blc.GetAllFootwear())
             {
-                Console.WriteLine($"{f.ID}: {f.Name} {f.Producer.Name} {f.Type}");
+                Console.WriteLine($"{f.Id}: {f.Name} {f.Producer.Name} {f.Type}");
             }
 
         }

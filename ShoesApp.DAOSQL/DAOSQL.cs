@@ -68,12 +68,12 @@ namespace INF148151_148140.ShoesApp.DAOSQL
 
         public IFootwear GetFootwear(int id)
         {
-            return context.Footwears.Include(f => f.Producer).FirstOrDefault(f => f.ID == id)!;
+            return context.Footwears.Include(f => f.Producer).FirstOrDefault(f => f.Id == id)!;
         }
 
         public IProducer GetProducer(int id)
         {
-            return context.Producers.FirstOrDefault(p => p.ID == id)!;
+            return context.Producers.FirstOrDefault(p => p.Id == id)!;
         }
 
         public void RemoveFootwear(int id)
@@ -104,7 +104,7 @@ namespace INF148151_148140.ShoesApp.DAOSQL
         {
             return new Footwear()
             {
-                ID = footwear.ID,
+                Id = footwear.Id,
                 Sku = footwear.Sku,
                 Name = footwear.Name,
                 Color = footwear.Color,
@@ -117,7 +117,7 @@ namespace INF148151_148140.ShoesApp.DAOSQL
         {
             return new Producer()
             {
-                ID = producer.ID,
+                Id = producer.Id,
                 Name = producer.Name,
                 Country = producer.Country
             };
