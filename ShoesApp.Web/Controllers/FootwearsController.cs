@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using INF148151_148140.ShoesApp.Core;
 using System.Globalization;
-
+using INF148151_148140.ShoesApp.BLC;
 namespace INF148151_148140.ShoesApp.Web.Controllers
 {
     public class FootwearsController : Controller
     {
 
-        private readonly BLC.BLC _blc;
+        private readonly BLController _blc;
 
         public FootwearsController()
         {
 
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
-            _blc = BLC.BLC.GetInstance(libraryName);
+            _blc = BLController.GetInstance(libraryName);
         }
 
 
@@ -45,7 +45,6 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         {
             try
             {
-                Console.WriteLine(collection["Price"]);
                 var footwear = _blc.CreateFootwear();
                 footwear.Name = collection["Name"];
                 footwear.Price = decimal.Parse(collection["Price"], CultureInfo.InvariantCulture);
@@ -58,8 +57,6 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -83,10 +80,9 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         {
             try
             {
-                Console.WriteLine(collection["Price"]);
                 var footwear = _blc.GetFootwear(id);
                 footwear.Name = collection["Name"];
-                footwear.Price = decimal.Parse(collection["Price"]);
+                footwear.Price = decimal.Parse(collection["Price"], CultureInfo.InvariantCulture);
                 footwear.Color = collection["Color"];
                 footwear.Sku = collection["Sku"];
                 footwear.Producer = _blc.GetProducer(int.Parse(collection["Producer"]));
@@ -96,8 +92,6 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -114,14 +108,13 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
         }
 
         // POST: Footwears/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
 
             _blc.DeleteFootwear(id);
             return RedirectToAction(nameof(Index));
-
         }
     }
 }

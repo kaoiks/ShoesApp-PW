@@ -3,6 +3,7 @@ using INF148151_148140.ShoesApp.Intefaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace INF148151_148140.ShoesApp.DAOSQL1
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
+            Debug.WriteLine(System.Reflection.Assembly.GetEntryAssembly().Location);
             Database.EnsureCreated();
         }
 

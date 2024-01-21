@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace ShoesApp.MAUI
+namespace INF148151_148140.ShoesApp.MAUI
 {
     internal class Program : MauiApplication
     {

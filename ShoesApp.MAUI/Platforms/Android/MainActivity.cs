@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 
-namespace ShoesApp.MAUI
+namespace INF148151_148140.ShoesApp.MAUI
 {
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity

@@ -3,6 +3,8 @@ using INF148151_148140.ShoesApp.Intefaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace INF148151_148140.ShoesApp.DAOSQL1
 {
@@ -23,12 +25,14 @@ namespace INF148151_148140.ShoesApp.DAOSQL1
 
         public DatabaseContext CreateDbContext(string[] args)
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            string currentDirectory = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var builder = new ConfigurationBuilder().SetBasePath(currentDirectory).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            
             var configuration = builder.Build();
-
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-            optionsBuilder.UseSqlite(configuration.GetConnectionString("Sqlite"));
-
+            //optionsBuilder.UseSqlite(configuration.GetConnectionString("Sqlite"));
+            Debug.WriteLine("Data Source=" + currentDirectory + "\\database.db");
+            optionsBuilder.UseSqlite("Data Source="+ currentDirectory + "\\database.db");
             return new DatabaseContext(optionsBuilder.Options);
         }
 

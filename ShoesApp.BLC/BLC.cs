@@ -4,32 +4,39 @@ using System.Reflection;
 
 namespace INF148151_148140.ShoesApp.BLC
 {
-	public class BLC
+	public class BLController
 	{
-		private static BLC instance;
+		private static BLController instance;
 		private static readonly object lockObject = new object();
 
 		private IDAO dao;
 
-		private BLC(string libraryName)
+		public BLController()
 		{
-			Type? typeToCreate = null;
+            string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
+            GetInstance(libraryName);
+        }
 
-			Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
-			Debug.WriteLine(assembly.FullName);
-			foreach (Type type in assembly.GetTypes())
-			{
-				if (type.IsAssignableTo(typeof(IDAO)))
+		private BLController(string libraryName)
+		{
+
+				Type? typeToCreate = null;
+				string path = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+				string libraryPath = string.Join("\\", path, libraryName);
+				Assembly assembly = Assembly.UnsafeLoadFrom(libraryPath);
+				foreach (Type type in assembly.GetTypes())
 				{
-					typeToCreate = type;
-					break;
-				}
-			}
 
-			dao = (IDAO)Activator.CreateInstance(typeToCreate, null);
+					if (type.IsAssignableTo(typeof(IDAO)))
+					{
+						typeToCreate = type;
+						break;
+					}
+				}
+				dao = (IDAO)Activator.CreateInstance(typeToCreate, null);
 		}
 
-		public static BLC GetInstance(string libraryName)
+		public static BLController GetInstance(string libraryName)
 		{
 			if (instance == null)
 			{
@@ -37,11 +44,12 @@ namespace INF148151_148140.ShoesApp.BLC
 				{
 					if (instance == null)
 					{
-						instance = new BLC(libraryName);
+						instance = new BLController(libraryName);
 					}
 				}
 			}
-			return instance;
+            
+            return instance;
 		}
 
 		public IEnumerable<IFootwear> GetAllFootwear()

@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace ShoesApp.MAUI
+namespace INF148151_148140.ShoesApp.MAUI
 {
     [Application]
     public class MainApplication : MauiApplication

@@ -131,7 +131,9 @@ namespace INF148151_148140.ShoesApp.DAOMock1
 
         public void RemoveProducer(int id)
         {
+            footwearList.RemoveAll(f => f.Producer.Id == id);
             producerList.Remove(producerList.FirstOrDefault(p => p.Id == id));
+
         }
 
         public void UpdateFootwear(IFootwear footwear)

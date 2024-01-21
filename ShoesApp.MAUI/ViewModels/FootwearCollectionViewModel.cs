@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesApp.MAUI.ViewModels
+namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 {
     public partial class FootwearCollectionViewModel: ObservableObject
     {

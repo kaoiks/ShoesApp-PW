@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ShoesApp.MAUI
+namespace INF148151_148140.ShoesApp.MAUI
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoesApp.MAUI.ViewModels
+namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 {
-    public partial class ProducerViewModel: ObservableObject, IProducer
+    public partial class ProducerViewModel: ObservableObject, IProducer, ICloneable
     {
         [ObservableProperty]
         private int id;
@@ -16,5 +16,16 @@ namespace ShoesApp.MAUI.ViewModels
         private string name;
         [ObservableProperty]
         private string country;
+
+        public ProducerViewModel(IProducer producer)
+        {
+            Id = producer.Id;
+            Name = producer.Name;
+            Country = producer.Country;
+        }
+        public object Clone()
+        {
+            return new ProducerViewModel(this);
+        }
     }
 }

@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using INF148151_148140.ShoesApp.BLC;
+using Microsoft.AspNetCore.Mvc;
+using INF148151_148140.ShoesApp.BLC;
 
 namespace INF148151_148140.ShoesApp.Web.Controllers
 {
     public class ProducersController : Controller
     {
-        private readonly BLC.BLC _blc;
+        private readonly BLController _blc;
 
         public ProducersController()
         {
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
-            _blc = BLC.BLC.GetInstance(libraryName);
+            _blc = BLController.GetInstance(libraryName);
         }
 
         // GET: Producers

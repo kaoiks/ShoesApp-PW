@@ -31,4 +31,13 @@
     <ProjectReference Include="..\ShoesApp.Intefaces\ShoesApp.Intefaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ShoesApp.DAOMock1">
+      <HintPath>..\ShoesApp.MAUI\ShoesApp.DAOMock1.dll</HintPath>
+    </Reference>
+    <Reference Include="ShoesApp.DAOSQL1">
+      <HintPath>..\ShoesApp.MAUI\ShoesApp.DAOSQL1.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
