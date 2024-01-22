@@ -36,5 +36,19 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             Producer = footwear.Producer;
             Type = footwear.Type;
         }
+        
+        public FootwearViewModel()
+        {
+            type = FootwearType.Sneaker;
+
+        }
+
+        public object Clone()
+        {
+            return new FootwearViewModel(this);
+        }
+
+        public IReadOnlyList<string> AllFootwearTypes { get; } = Enum.GetNames(typeof(FootwearType));
+
     }
 }

@@ -23,6 +23,11 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             Name = producer.Name;
             Country = producer.Country;
         }
+        public ProducerViewModel()
+        {
+
+        }
+
         public object Clone()
         {
             return new ProducerViewModel(this);

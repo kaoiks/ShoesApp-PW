@@ -59,13 +59,20 @@ namespace INF148151_148140.ShoesApp.DAOSQL1
 
         public void AddProducer(IProducer producer)
         {
-            if (producer == null)
+            try
             {
-                throw new ArgumentNullException(nameof(producer));
-            }
+                if (producer == null)
+                {
+                    throw new ArgumentNullException(nameof(producer));
+                }
 
-            _context.Add(producer);
-            _context.SaveChanges();
+                _context.Add(producer);
+                _context.SaveChanges();
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
 
         public void RemoveFootwear(int id)

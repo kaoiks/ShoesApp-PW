@@ -22,6 +22,8 @@ namespace INF148151_148140.ShoesApp.MAUI
             //builder.Services.AddSingleton<ViewModels.FootwearCollectionViewModel>();
             builder.Services.AddSingleton<ProducerCollectionViewModel>();
             builder.Services.AddSingleton<ProducersPage>();
+            builder.Services.AddSingleton<FootwearCollectionViewModel>();
+            builder.Services.AddSingleton<FootwearsPage>();
             builder.Services.AddSingleton<BLController>(serviceProvider =>
             {
                 string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];

@@ -6,7 +6,7 @@
              x:Name="ProducerContentPageName"
              Title="ProducersPage">
     <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped">
+        <ListView ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped_1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -20,11 +20,40 @@
                                    VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
                                 <Label Text="{Binding Country}" FontAttributes="Bold"
                                     VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+
                             </HorizontalStackLayout>
                         </Border>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        </VerticalStackLayout>
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto" BindingContext="{Binding ProducerEdit}">
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Name"/>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="5">
+                <Entry Text="{Binding Name}" />
+                <ListView
+                  HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
+                  MinimumHeightRequest="0"
+                  IsEnabled="False"  
+                  />
+            </VerticalStackLayout>
+
+
+            <Label Grid.Row="2" Grid.Column="0" Text="Country">
+            </Label>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Country}" IsEnabled="{Binding IsEditing}"/>
+   
+        </Grid>
+        
+        
+        <HorizontalStackLayout >
+            <Button Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewProducerCommand}"></Button>
+            <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveProducerCommand}"></Button>
+            <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteProducerCommand}"></Button>
+            <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>
+        </HorizontalStackLayout>
+        
+    </VerticalStackLayout>
 </ContentPage>

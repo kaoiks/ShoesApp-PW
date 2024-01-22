@@ -1,12 +1,122 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="INF148151_148140.ShoesApp.MAUI.FootwearsPage"
+            xmlns:viewmodel="clr-namespace:INF148151_148140.ShoesApp.MAUI.ViewModels"
+            x:Name="FootwearsContentPageName"
              Title="FootwearsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:EnumToIntConverter x:Key="EnumToIntConverter"/>
+            <viewmodel:MyEnumToIntConverter x:Key="Myconverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <StackLayout>
+            <Border Stroke="Gray" StrokeThickness="1" Padding="7">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Header Labels -->
+                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="1" Text="Sku" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="2" Text="Name" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="3" Text="Color" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="4" Text="Price" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="5" Text="Type" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Column="6" Text="Producer" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                </Grid>
+            </Border>
+
+            <ListView ItemsSource="{Binding Footwears}" ItemTapped="ListView_ItemTapped_1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Border Stroke="Gray" StrokeThickness="1" Padding="7">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Data Labels -->
+                                    <Label Grid.Column="0" Text="{Binding Id}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="1" Text="{Binding Sku}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="2" Text="{Binding Name}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="3" Text="{Binding Color}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="4" Text="{Binding Price}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="5" Text="{Binding Type}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                    <Label Grid.Column="6" Text="{Binding Producer.Name}" FontAttributes="Bold"
+                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto" BindingContext="{Binding FootwearEdit}">
+
+
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Sku}" IsEnabled="{Binding IsEditing}"/>
+            <Label Grid.Row="0" Grid.Column="0" Text="Sku">
+            </Label>
+            
+            <Label Grid.Row="1" Grid.Column="0" Text="Name"/>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="5">
+                <Entry Text="{Binding Name}" />
+            </VerticalStackLayout>
+
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Color}" IsEnabled="{Binding IsEditing}"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Color">
+            </Label>
+            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Price}" IsEnabled="{Binding IsEditing}"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Price">
+            </Label>
+            <Picker WidthRequest="200" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding AllFootwearTypes}" 
+                SelectedIndex="{Binding Type}, Converter={StaticResource Myconverter}, ConverterParameter={x:Type interfaces:FootwearType}, Mode=TwoWay}" 
+                TextColor="White"/>
+            <Label Grid.Row="5" Grid.Column="0" Text="Type">
+            </Label>
+        </Grid>
+
+
+        <HorizontalStackLayout >
+            <Button Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewFootwearCommand}"></Button>
+            <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveFootwearCommand}"></Button>
+            <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteFootwearCommand}"></Button>
+            <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>
