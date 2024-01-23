@@ -11,11 +11,11 @@
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" /> 
-    <ShellContent
-        Title="Footwear Catalog"
-        ContentTemplate="{DataTemplate local:FootwearsPage}"
-        Route="FootwearsPage" />
+            Route="MainPage" />
+        <ShellContent
+            Title="Footwear Catalog"
+            ContentTemplate="{DataTemplate local:FootwearsPage}"
+            Route="FootwearsPage" />
         <ShellContent
             Title="Producers"
             ContentTemplate="{DataTemplate local:ProducersPage}"

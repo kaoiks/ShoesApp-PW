@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,13 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             set { SetProperty(ref footwearEdit, value); }
         }
 
+        private ObservableCollection<IProducer> allProducers;
+        public ObservableCollection<IProducer> AllProducers
+        {
+            get { return allProducers; }
+            set { SetProperty(ref allProducers, value); }
+        }
+
         [ObservableProperty]
         private bool isEditing = false;
         [ObservableProperty]
@@ -45,11 +53,8 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
         public FootwearCollectionViewModel(BLController blc)
         {
             _blc = blc;
-            Footwears = new ObservableCollection<FootwearViewModel>();
-            foreach (IFootwear footwear in _blc.GetAllFootwear())
-            {
-                Footwears.Add(new FootwearViewModel(footwear));
-            }
+            ReloadProducers();
+            reloadFootwears();
 
             CancelCommand = new Command(
                 execute: () =>
@@ -64,13 +69,26 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
                 {
                     return IsEditing || isCreating;
                 });
+            
         }
-
+    
+        public void ReloadProducers()
+        {
+            AllProducers = [.. _blc.GetAllProducers()];
+        }
 
         [RelayCommand(CanExecute = nameof(CanCreateNewFootwear))]
         private void CreateNewFootwear()
         {
             FootwearEdit = new FootwearViewModel();
+            if (AllProducers.Count > 0)
+            {
+                FootwearEdit.Producer = AllProducers[0];
+            }
+            else
+            {
+                return;
+            }
             FootwearEdit.PropertyChanged += OnFootwearEditPropertyChanged;
             isCreating = true;
             RefreshCanExecute();
@@ -87,14 +105,25 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 
             if (isCreating)
             {
+                Debug.WriteLine("CREATING FOOTWEAR");
                 var footwear = _blc.CreateFootwear();
                 footwear.Name = FootwearEdit.Name;
+                footwear.Sku = FootwearEdit.Sku;
+                footwear.Color = FootwearEdit.Color;
+                footwear.Price = FootwearEdit.Price;
+                footwear.Type = FootwearEdit.Type;
+                footwear.Producer = _blc.GetProducer(FootwearEdit.Producer.Id);
                 _blc.AddFootwear(footwear);
             }
             else
             {
                 var footwear = _blc.GetFootwear(FootwearEdit.Id);
                 footwear.Name = FootwearEdit.Name;
+                footwear.Sku = FootwearEdit.Sku;
+                footwear.Color = FootwearEdit.Color;
+                footwear.Price = FootwearEdit.Price;
+                footwear.Type = FootwearEdit.Type;
+                footwear.Producer = _blc.GetProducer(FootwearEdit.Producer.Id);
                 _blc.UpdateFootwear(footwear);
             }
             FootwearEdit.PropertyChanged -= OnFootwearEditPropertyChanged;
@@ -107,9 +136,15 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 
         private bool CanEditFootwearBeSaved()
         {
-            return this.FootwearEdit != null &&
+            return FootwearEdit != null &&
+                   FootwearEdit.Sku != null &&
+                   FootwearEdit.Sku.Length >= 1 &&
                    FootwearEdit.Name != null &&
-                   FootwearEdit.Name.Length >= 1;
+                   FootwearEdit.Name.Length >= 1 &&
+                   FootwearEdit.Color != null &&
+                   FootwearEdit.Color.Length >=1 &&
+                   FootwearEdit.Price != null &&
+                   FootwearEdit.Price >= 0 ;
         }
 
         public void EditFootwear(FootwearViewModel footwear)
@@ -147,10 +182,16 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 
         void reloadFootwears()
         {
+            if (Footwears == null)
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>();
+            }
             Footwears.Clear();
             foreach (IFootwear footwear in _blc.GetAllFootwear())
             {
-                Footwears.Add(new FootwearViewModel(footwear));
+                var footwearViewModel = new FootwearViewModel(footwear);
+                footwearViewModel.Producer = _blc.GetProducer(footwear.Producer.Id);
+                Footwears.Add(footwearViewModel);
             }
         }
 
@@ -176,4 +217,6 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 
         }
     }
+
+
 }

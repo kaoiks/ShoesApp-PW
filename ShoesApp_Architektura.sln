@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesApp.MAUI", "ShoesApp.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoesApp.DAOSQL1", "ShoesApp.DAOSQL1\ShoesApp.DAOSQL1.csproj", "{49050DFE-64E7-4990-8D0C-9C938453D177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,24 +145,6 @@ Global
 		{49050DFE-64E7-4990-8D0C-9C938453D177}.Release|x64.Build.0 = Release|Any CPU
 		{49050DFE-64E7-4990-8D0C-9C938453D177}.Release|x86.ActiveCfg = Release|Any CPU
 		{49050DFE-64E7-4990-8D0C-9C938453D177}.Release|x86.Build.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x64.Build.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x64.Deploy.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x86.Build.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Debug|x86.Deploy.0 = Debug|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x64.ActiveCfg = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x64.Build.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x64.Deploy.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x86.ActiveCfg = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x86.Build.0 = Release|Any CPU
-		{19A7BB1A-EB31-4E1D-9217-1F59D5D5F9E7}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

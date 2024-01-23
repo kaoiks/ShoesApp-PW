@@ -15,6 +15,24 @@
     
     <VerticalStackLayout>
         <StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="10">
+                <Label Text="Filter By:" VerticalOptions="Center" FontSize="18" />
+                <Picker Margin="10,10,10,10" x:Name="FilterCriteriaPicker" SelectedIndexChanged="FilterCriteriaPicker_SelectedIndexChanged">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Sku</x:String>
+                            <x:String>Name</x:String>
+                            <x:String>Color</x:String>
+                            <x:String>Price</x:String>
+                            <x:String>Type</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Entry Placeholder="Search Text" Text="{Binding SearchText}" WidthRequest="300"/>
+
+            </StackLayout>
+
             <Border Stroke="Gray" StrokeThickness="1" Padding="7">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -27,7 +45,6 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- Header Labels -->
                     <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
                 VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
                     <Label Grid.Column="1" Text="Sku" FontAttributes="Bold"
@@ -85,30 +102,39 @@
         </StackLayout>
 
 
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto" BindingContext="{Binding FootwearEdit}">
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+      ColumnDefinitions="*, 2*, 8*"
+      BindingContext="{Binding FootwearEdit}">
 
-
-            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Sku}" IsEnabled="{Binding IsEditing}"/>
-            <Label Grid.Row="0" Grid.Column="0" Text="Sku">
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Sku}" IsEnabled="{Binding IsEditing}" Margin="10" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
+            <Label Grid.Row="0" Grid.Column="0" Text="Sku" VerticalOptions="Start" WidthRequest="100">
             </Label>
-            
-            <Label Grid.Row="1" Grid.Column="0" Text="Name"/>
-            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="5">
-                <Entry Text="{Binding Name}" />
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Name" VerticalOptions="Start" WidthRequest="100"/>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="10">
+                <Entry Text="{Binding Name}" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
             </VerticalStackLayout>
 
-            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Color}" IsEnabled="{Binding IsEditing}"/>
-            <Label Grid.Row="2" Grid.Column="0" Text="Color">
-            </Label>
-            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Price}" IsEnabled="{Binding IsEditing}"/>
-            <Label Grid.Row="4" Grid.Column="0" Text="Price">
-            </Label>
-            <Picker WidthRequest="200" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding AllFootwearTypes}" 
-                SelectedIndex="{Binding Type}, Converter={StaticResource Myconverter}, ConverterParameter={x:Type interfaces:FootwearType}, Mode=TwoWay}" 
-                TextColor="White"/>
-            <Label Grid.Row="5" Grid.Column="0" Text="Type">
-            </Label>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Color}" IsEnabled="{Binding IsEditing}" Margin="10" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Color"  VerticalOptions="Start" WidthRequest="100"/>
+
+            <Entry Grid.Row="4" Grid.Column="1" Text="{Binding Price}" IsEnabled="{Binding IsEditing}" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Price"  VerticalOptions="Start" WidthRequest="100"/>
+
+            <Picker Grid.Row="5" Grid.Column="1" ItemsSource="{Binding AllFootwearTypes}" Margin="10"
+                SelectedIndex="{Binding Type, Converter={StaticResource Myconverter}}, ConverterParameter={x:Type interfaces:FootwearType}, Mode=TwoWay}" 
+                TextColor="White" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
+            <Label Grid.Row="5" Grid.Column="0" Text="Type" VerticalOptions="Start" WidthRequest="100"/>
+
+
+            <Picker ItemsSource="{Binding BindingContext.AllProducers, Source={x:Reference FootwearsContentPageName}}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding Producer}" WidthRequest="200"
+                    Grid.Row="6" Grid.Column="1" VerticalOptions="Start" />
+            <Label Grid.Row="6" Grid.Column="0" Text="Producer" VerticalOptions="Start" WidthRequest="100" />
+            
         </Grid>
+
 
 
         <HorizontalStackLayout >

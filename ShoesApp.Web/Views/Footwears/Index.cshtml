@@ -2,67 +2,179 @@
 @model IEnumerable<INF148151_148140.ShoesApp.Intefaces.IFootwear>
 
 @{
-    ViewData["Title"] = "Footwear Catalog";
+	ViewData["Title"] = "Footwear Catalog";
 }
 
 <h1>Footwear Catalog</h1>
+<div class="container">
+	<div class="row">
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Add New</a>
-</p>
-<table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Sku)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-				@Html.DisplayNameFor(model => model.Producer.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sku)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Producer.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+		<div class="col-md-2">
+			<h3>Filters</h3>
+			<form method="get" style="margin: 1rem;">
+				<div class="form-group">
+					<label for="searchTerm">Search</label>
+					<input type="text" name="searchTerm" id="searchTerm" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="producerName">Producer Name:</label>
+					<input type="text" name="producerName" id="producerName" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="color">Filter by Color:</label>
+					<input type="text" name="color" id="color" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="slider">Price Range:</label>
+					<div id="slider"></div>
+					<input style="margin-top: 0.5rem; background-color: lightgray;" name="minPrice" id="minPrice" type="number" class="sliderValue form-control" data-index="0" value="10" readonly />
+					<input style="margin-top: 0.5rem; background-color: lightgray;" name="maxPrice" id="maxPrice" type="number" class="sliderValue form-control" data-index="1" value="1000" readonly />
+                    <script>
+                        var urlParams = new URLSearchParams(window.location.search);
 
+                        var minPriceParam = urlParams.get("minPrice") ?? "10";
+                        var maxPriceParam = urlParams.get("maxPrice") ?? "1000";
+                        var minPrice = minPriceParam != null ? parseInt(minPriceParam) : 10;
+                        var maxPrice = maxPriceParam != null ? parseInt(maxPriceParam) : 1000;
+
+
+                        $("#slider").slider({
+                            min: 0,
+                            max: 1000,
+                            step: 1,
+                            values: [minPrice, maxPrice],
+                            slide: function (event, ui) {
+                                for (var i = 0; i < ui.values.length; ++i) {
+                                    $("input.sliderValue[data-index=" + i + "]").val(ui.values[i]);
+                                }
+                            }
+                        });
+
+                        $("input.sliderValue").change(function () {
+                            var $this = $(this);
+							var sliderValue0 = parseInt($("input.sliderValue[data-index=0]").val());
+							var sliderValue1 = parseInt($("input.sliderValue[data-index=1]").val());
+
+							if (sliderValue0 > sliderValue1) {
+								minPrice = sliderValue1 - 1;
+								// Update the input values
+								$("input.sliderValue[data-index=0]").val(minPrice);
+							}
+                            $("#slider").slider("values", $this.data("index"), $this.val());
+                        });
+                    </script>
+				</div>
+				<div class="form-group" style="margin-top: 2rem">
+					<label for="footwearType">Footwear Type:</label>
+					<select name="footwearType" id="footwearType" class="form-control">
+						<option value="">All</option>
+						<option value="Sneaker">Sneaker</option>
+						<option value="Running">Running</option>
+						<option value="Sandal">Sandal</option>
+						<option value="FlipFlop">FlipFlop</option>
+						<option value="Clog">Clog</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<button type="submit" style="margin-top: 0.5rem" class="btn btn-dark">Apply Filters</button>
+					<a asp-action="Index" style="margin-top: 0.5rem" class="btn btn-secondary">Reset Filters</a>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-10" style="overflow-y: scroll;">
+			<p>
+				<a class="btn btn-primary" asp-action="Create">Add New</a>
+			</p>
+
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Sku)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Price)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Producer.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Color)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Type)
+						</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Sku)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Price)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Producer.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Color)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Type)
+							</td>
+							<td>
+								<a class="btn btn-primary" style="margin-top: 0.5rem" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+								<a class="btn btn-info" style="margin-top: 0.5rem" asp-action="Details" asp-route-id="@item.Id">Details</a>
+								<a class="btn btn-danger" style="margin-top: 0.5rem" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		var slider = $("#slider");
+		var minPrice = $("#minPrice");
+		var maxPrice = $("#maxPrice");
+		var minPriceHidden = $("#minPriceHidden");
+		var maxPriceHidden = $("#maxPriceHidden");
+		var footwearType = $("#footwearType");
+		var color = $("#color");
+		var producerName = $("#producerName");
+		var searchTerm = $("#searchTerm");
+		// Parse the URL and get the query parameters
+		var urlParams = new URLSearchParams(window.location.search);
+		var minPriceParam = urlParams.get("minPrice");
+		var maxPriceParam = urlParams.get("maxPrice");
+
+		// Set the input values based on the query parameters
+		minPrice.val(minPriceParam || 0);
+		maxPrice.val(maxPriceParam || 1000);
+		minPriceHidden.val(minPriceParam || 0);
+		maxPriceHidden.val(maxPriceParam || 1000);
+
+		var searchParam = urlParams.get("searchTerm");
+		var producerNameParam = urlParams.get("producerName");
+		var colorParam = urlParams.get("color");
+		var footwearTypeParam = urlParams.get("footwearType");
+		searchTerm.val(searchParam || "");
+		producerName.val(producerNameParam || "");
+		color.val(colorParam || "");
+		footwearType.val(footwearTypeParam || "");
+
+
+	});
+</script>

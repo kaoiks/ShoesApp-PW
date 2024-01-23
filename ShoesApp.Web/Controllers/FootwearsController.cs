@@ -18,9 +18,24 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
 
 
         // GET: Footwears
-        public IActionResult Index()
+        public IActionResult Index(string searchTerm, string producerName, string color, decimal? minPrice, decimal? maxPrice, FootwearType? footwearType)
         {
-            return View(_blc.GetAllFootwear());
+            var allFootwear = _blc.GetAllFootwear();
+            var filteredFootwear = allFootwear
+                .Where(footwear =>
+                    (string.IsNullOrEmpty(searchTerm) ||
+                    footwear.Sku.ToLower().Contains(searchTerm.ToLower()) ||
+                    footwear.Producer.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    footwear.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    footwear.Color.ToLower().Contains(searchTerm.ToLower())) &&
+                    (string.IsNullOrEmpty(producerName) || footwear.Producer.Name.ToLower().Contains(producerName.ToLower())) &&
+                    (string.IsNullOrEmpty(color) || footwear.Color.ToLower().Contains(color.ToLower())) &&
+                    (!minPrice.HasValue || footwear.Price >= minPrice.Value) &&
+                    (!maxPrice.HasValue || footwear.Price <= maxPrice.Value) &&
+                    (!footwearType.HasValue || footwear.Type == footwearType.Value))
+                .ToList();
+
+            return View(filteredFootwear);
         }
 
         // GET: Footwears/Details/5

@@ -7,6 +7,7 @@
 <h1>Add Producer</h1>
 <hr />
 <div class="row">
+    <div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -24,12 +25,14 @@
                 <input type="submit" style="margin-top: 10px" value="Create" class="btn btn-primary" />
             </div>
         </form>
+            <div>
+                <a style="margin-top: 10px" class="btn btn-secondary" asp-action="Index">Back to List</a>
+            </div>
     </div>
+    
+</div>
 </div>
 
-<div>
-    <a style="margin-top: 10px" class="btn btn-secondary" asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
