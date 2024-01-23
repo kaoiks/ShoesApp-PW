@@ -27,20 +27,20 @@
 				<div class="form-group">
 					<label for="slider">Price Range:</label>
 					<div id="slider"></div>
-					<input style="margin-top: 0.5rem; background-color: lightgray;" name="minPrice" id="minPrice" type="number" class="sliderValue form-control" data-index="0" value="10" readonly />
-					<input style="margin-top: 0.5rem; background-color: lightgray;" name="maxPrice" id="maxPrice" type="number" class="sliderValue form-control" data-index="1" value="1000" readonly />
+					<input style="margin-top: 0.5rem; background-color: lightgray;" name="minPrice" id="minPrice" type="number" class="sliderValue form-control" data-index="0" value="0" readonly />
+					<input style="margin-top: 0.5rem; background-color: lightgray;" name="maxPrice" id="maxPrice" type="number" class="sliderValue form-control" data-index="1" value="2000" readonly />
                     <script>
                         var urlParams = new URLSearchParams(window.location.search);
 
                         var minPriceParam = urlParams.get("minPrice") ?? "10";
-                        var maxPriceParam = urlParams.get("maxPrice") ?? "1000";
+						var maxPriceParam = urlParams.get("maxPrice") ?? "2000";
                         var minPrice = minPriceParam != null ? parseInt(minPriceParam) : 10;
-                        var maxPrice = maxPriceParam != null ? parseInt(maxPriceParam) : 1000;
+						var maxPrice = maxPriceParam != null ? parseInt(maxPriceParam) : 2000;
 
 
                         $("#slider").slider({
                             min: 0,
-                            max: 1000,
+							max: 2000,
                             step: 1,
                             values: [minPrice, maxPrice],
                             slide: function (event, ui) {
@@ -81,7 +81,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-md-10" style="overflow-y: scroll;">
+		<div class="col-md-10" style="overflow-y: scroll; max-height: 80vh">
 			<p>
 				<a class="btn btn-primary" asp-action="Create">Add New</a>
 			</p>
@@ -162,9 +162,9 @@
 
 		// Set the input values based on the query parameters
 		minPrice.val(minPriceParam || 0);
-		maxPrice.val(maxPriceParam || 1000);
+		maxPrice.val(maxPriceParam || 2000);
 		minPriceHidden.val(minPriceParam || 0);
-		maxPriceHidden.val(maxPriceParam || 1000);
+		maxPriceHidden.val(maxPriceParam || 2000);
 
 		var searchParam = urlParams.get("searchTerm");
 		var producerNameParam = urlParams.get("producerName");
