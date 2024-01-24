@@ -11,6 +11,16 @@ public partial class FootwearsPage : ContentPage
     {
         InitializeComponent();
         BindingContext = viewModel;
+        viewModel.PropertyChanged += (sender, e) =>
+        {
+            if (e.PropertyName == nameof(viewModel.Footwears))
+            {
+                // Refresh the ListView when the Producers property changes
+                var updatedFootwears = viewModel.Footwears;
+                FootwearList.ItemsSource = updatedFootwears;
+            }
+        };
+
     }
 
 

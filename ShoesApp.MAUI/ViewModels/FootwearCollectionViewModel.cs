@@ -54,7 +54,7 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
         {
             _blc = blc;
             ReloadProducers();
-            reloadFootwears();
+            ReloadFootwears();
 
             CancelCommand = new Command(
                 execute: () =>
@@ -131,7 +131,7 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             IsEditing = false;
             isCreating = false;
             RefreshCanExecute();
-            reloadFootwears();
+            ReloadFootwears();
         }
 
         private bool CanEditFootwearBeSaved()
@@ -164,7 +164,7 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             IsEditing = false;
             FootwearEdit = null;
             RefreshCanExecute();
-            reloadFootwears();
+            ReloadFootwears();
         }
 
         private void RefreshCanExecute()
@@ -180,7 +180,12 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             SaveFootwearCommand.NotifyCanExecuteChanged();
         }
 
-        void reloadFootwears()
+        public bool IsCurrentlyEditing()
+        {
+            return isEditing || isCreating;
+        }
+
+        public void ReloadFootwears()
         {
             if (Footwears == null)
             {

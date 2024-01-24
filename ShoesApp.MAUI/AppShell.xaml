@@ -15,7 +15,9 @@
         <ShellContent
             Title="Footwear Catalog"
             ContentTemplate="{DataTemplate local:FootwearsPage}"
-            Route="FootwearsPage" />
+            Route="FootwearsPage">
+            
+        </ShellContent>
         <ShellContent
             Title="Producers"
             ContentTemplate="{DataTemplate local:ProducersPage}"

@@ -62,7 +62,7 @@
                 </Grid>
             </Border>
 
-            <ListView ItemsSource="{Binding Footwears}" ItemTapped="ListView_ItemTapped_1">
+            <ListView x:Name="FootwearList" ItemsSource="{Binding Footwears}" ItemTapped="ListView_ItemTapped_1">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -138,7 +138,7 @@
 
 
         <HorizontalStackLayout >
-            <Button Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewFootwearCommand}"></Button>
+            <Button x:Name="CreateButton" Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewFootwearCommand}"></Button>
             <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveFootwearCommand}"></Button>
             <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteFootwearCommand}"></Button>
             <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>

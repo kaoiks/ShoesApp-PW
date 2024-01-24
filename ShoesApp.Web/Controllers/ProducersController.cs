@@ -109,10 +109,5 @@ namespace INF148151_148140.ShoesApp.Web.Controllers
             _blc.DeleteProducer(id);
             return RedirectToAction(nameof(Index));
         }
-
-        //private bool ProducerExists(int id)
-        //{
-        //  return (_context.Producers?.Any(e => e.ID == id)).GetValueOrDefault();
-        //}
     }
 }

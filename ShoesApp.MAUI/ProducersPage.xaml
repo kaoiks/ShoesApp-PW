@@ -7,7 +7,7 @@
              Title="ProducersPage">
     <VerticalStackLayout>
         
-        <ListView ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped_1">
+        <ListView x:Name="ProducersList" ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped_1">
             <ListView.Header  Stroke="Gray">
                 <Grid>
                     <Grid.ColumnDefinitions>

@@ -61,6 +61,11 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
 
         }
 
+        public bool IsCurrentlyEditing()
+        {
+            return IsEditing || isCreating;
+        }
+
         [RelayCommand(CanExecute = nameof(CanCreateNewProducer))]
         private void CreateNewProducer()
         {
@@ -150,6 +155,7 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
             {
                 Producers.Add(new ProducerViewModel(producer));
             }
+            OnPropertyChanged(nameof(Producers));
         }
 
     }

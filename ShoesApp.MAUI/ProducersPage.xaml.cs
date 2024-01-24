@@ -8,6 +8,16 @@ public partial class ProducersPage : ContentPage
 	{
         InitializeComponent();
         BindingContext = viewModel;
+        viewModel.PropertyChanged += (sender, e) =>
+        {
+            if (e.PropertyName == nameof(viewModel.Producers))
+            {
+                // Refresh the ListView when the Producers property changes
+                var updatedProducers = viewModel.Producers;
+                ProducersList.ItemsSource = updatedProducers;
+            }
+        };
+
     }
 
 
