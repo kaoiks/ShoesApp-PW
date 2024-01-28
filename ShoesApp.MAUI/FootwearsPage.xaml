@@ -12,109 +12,108 @@
             <viewmodel:MyEnumToIntConverter x:Key="Myconverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <VerticalStackLayout>
-        <StackLayout>
 
-            <StackLayout Orientation="Horizontal" Margin="10">
-                <Label Text="Filter By:" VerticalOptions="Center" FontSize="18" />
-                <Picker Margin="10,10,10,10" x:Name="FilterCriteriaPicker" SelectedIndexChanged="FilterCriteriaPicker_SelectedIndexChanged">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Sku</x:String>
-                            <x:String>Name</x:String>
-                            <x:String>Color</x:String>
-                            <x:String>Price</x:String>
-                            <x:String>Type</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-                <Entry Placeholder="Search Text" Text="{Binding SearchText}" WidthRequest="300"/>
 
-            </StackLayout>
-
-            <Border Stroke="Gray" StrokeThickness="1" Padding="7">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="1" Text="Sku" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="2" Text="Name" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="3" Text="Color" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="4" Text="Price" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="5" Text="Type" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="6" Text="Producer" FontAttributes="Bold"
-                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                </Grid>
-            </Border>
-
-            <ListView x:Name="FootwearList" ItemsSource="{Binding Footwears}" ItemTapped="ListView_ItemTapped_1">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Border Stroke="Gray" StrokeThickness="1" Padding="7">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <!-- Data Labels -->
-                                    <Label Grid.Column="0" Text="{Binding Id}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="1" Text="{Binding Sku}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="2" Text="{Binding Name}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="3" Text="{Binding Color}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="4" Text="{Binding Price}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="5" Text="{Binding Type}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                    <Label Grid.Column="6" Text="{Binding Producer.Name}" FontAttributes="Bold"
-                                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                                </Grid>
-                            </Border>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <StackLayout Orientation="Horizontal" Margin="10">
+            <Label Text="Filter By:" VerticalOptions="Center" FontSize="18" />
+            <Picker Margin="10,10,10,10" x:Name="FilterCriteriaPicker" SelectedItem="{Binding SelectedFilterCriteria}" WidthRequest="200">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Sku</x:String>
+                        <x:String>Name</x:String>
+                        <x:String>Color</x:String>
+                        <x:String>Producer Name</x:String>
+                        <x:String>Type</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Entry Placeholder="Search Text" Text="{Binding SearchText}" WidthRequest="300" Margin="10"/>
+            <Label Text="Min Price" FontSize="18" VerticalOptions="Center" Margin="10" />
+            <Entry Placeholder="Min Price" Text="{Binding MinPrice}" WidthRequest="100" Keyboard="Numeric" Margin="10" />
+            <Label Text="Max Price" FontSize="18" VerticalOptions="Center" Margin="10" />
+            <Entry Placeholder="Max Price" Text="{Binding MaxPrice}" WidthRequest="100" Keyboard="Numeric" Margin="10" />
+            
+            <Button Text="Search" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding SearchCommand}"></Button>
         </StackLayout>
 
+        <Border Stroke="Gray" StrokeThickness="1" Padding="7">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
+                <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="1" Text="Sku" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="2" Text="Name" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="3" Text="Color" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="4" Text="Price" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="5" Text="Type" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="6" Text="Producer" FontAttributes="Bold"
+                VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+            </Grid>
+        </Border>
+        <ListView x:Name="FootwearList" ItemsSource="{Binding Footwears}" ItemTapped="ListView_ItemTapped_1" MaximumHeightRequest="300">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Stroke="Gray" StrokeThickness="1" Padding="7">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Data Labels -->
+                                <Label Grid.Column="0" Text="{Binding Id}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="1" Text="{Binding Sku}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="2" Text="{Binding Name}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="3" Text="{Binding Color}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="4" Text="{Binding Price}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="5" Text="{Binding Type}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                                <Label Grid.Column="6" Text="{Binding Producer.Name}" FontAttributes="Bold"
+                                        VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
-      ColumnDefinitions="*, 2*, 8*"
-      BindingContext="{Binding FootwearEdit}">
+                  ColumnDefinitions="*, 2*, 8*"
+                  BindingContext="{Binding FootwearEdit}" Margin="10">
 
             <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Sku}" IsEnabled="{Binding IsEditing}" Margin="10" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
             <Label Grid.Row="0" Grid.Column="0" Text="Sku" VerticalOptions="Start" WidthRequest="100">
             </Label>
 
-            <Label Grid.Row="1" Grid.Column="0" Text="Name" VerticalOptions="Start" WidthRequest="100"/>
-            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="10">
-                <Entry Text="{Binding Name}" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
-            </VerticalStackLayout>
 
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Name}" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="Name" VerticalOptions="Start" WidthRequest="100"/>
             <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Color}" IsEnabled="{Binding IsEditing}" Margin="10" WidthRequest="300" HeightRequest="40" VerticalOptions="Start"/>
             <Label Grid.Row="2" Grid.Column="0" Text="Color"  VerticalOptions="Start" WidthRequest="100"/>
 
@@ -132,17 +131,13 @@
                         SelectedItem="{Binding Producer}" WidthRequest="200"
                     Grid.Row="6" Grid.Column="1" VerticalOptions="Start" />
             <Label Grid.Row="6" Grid.Column="0" Text="Producer" VerticalOptions="Start" WidthRequest="100" />
-            
+
         </Grid>
-
-
-
-        <HorizontalStackLayout >
+        <HorizontalStackLayout>
             <Button x:Name="CreateButton" Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewFootwearCommand}"></Button>
             <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveFootwearCommand}"></Button>
             <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteFootwearCommand}"></Button>
             <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>
         </HorizontalStackLayout>
-
     </VerticalStackLayout>
 </ContentPage>

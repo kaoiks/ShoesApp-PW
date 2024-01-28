@@ -19,7 +19,6 @@ namespace INF148151_148140.ShoesApp.MAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            //builder.Services.AddSingleton<ViewModels.FootwearCollectionViewModel>();
             builder.Services.AddTransient<ProducerCollectionViewModel>();
             builder.Services.AddTransient<ProducersPage>();
             builder.Services.AddTransient<FootwearCollectionViewModel>();

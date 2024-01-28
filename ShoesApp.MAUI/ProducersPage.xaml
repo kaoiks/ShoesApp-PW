@@ -6,23 +6,24 @@
              x:Name="ProducerContentPageName"
              Title="ProducersPage">
     <VerticalStackLayout>
-        
-        <ListView x:Name="ProducersList" ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped_1">
-            <ListView.Header  Stroke="Gray">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
-                   VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="1" Text="Name" FontAttributes="Bold"
-                   VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                    <Label Grid.Column="2" Text="Country" FontAttributes="Bold"
-                   VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
-                </Grid>
-            </ListView.Header>
+        <Border Stroke="Gray" StrokeThickness="1" Padding="7">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Id" FontAttributes="Bold"
+                    VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="1" Text="Name" FontAttributes="Bold"
+                    VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+                <Label Grid.Column="2" Text="Country" FontAttributes="Bold"
+                    VerticalOptions="Center" HorizontalOptions="Center" FontSize="18" />
+
+            </Grid>
+        </Border>
+        <ListView x:Name="ProducersList" ItemsSource="{Binding Producers}" ItemTapped="ListView_ItemTapped_1" MaximumHeightRequest="300">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -46,32 +47,25 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto" BindingContext="{Binding ProducerEdit}">
+        <Grid HorizontalOptions="StartAndExpand" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*, 2*, 8*" BindingContext="{Binding ProducerEdit}" Margin="10">
 
+
+
+            <Entry Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding Name}" WidthRequest="200"/>
             <Label Grid.Row="1" Grid.Column="0" Text="Name"/>
-            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Margin="5">
-                <Entry Text="{Binding Name}" />
-                <ListView
-                  HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
-                  MinimumHeightRequest="0"
-                  IsEnabled="False"  
-                  />
-            </VerticalStackLayout>
 
 
-            <Label Grid.Row="2" Grid.Column="0" Text="Country">
-            </Label>
-            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Country}" IsEnabled="{Binding IsEditing}"/>
-   
+            <Entry Margin="10" Grid.Row="2" Grid.Column="1" Text="{Binding Country}" IsEnabled="{Binding IsEditing}" WidthRequest="150"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Country"/>
         </Grid>
-        
-        
+
+
         <HorizontalStackLayout >
             <Button Text="New Footwear" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewProducerCommand}"></Button>
             <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveProducerCommand}"></Button>
             <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteProducerCommand}"></Button>
             <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>
         </HorizontalStackLayout>
-        
+
     </VerticalStackLayout>
 </ContentPage>

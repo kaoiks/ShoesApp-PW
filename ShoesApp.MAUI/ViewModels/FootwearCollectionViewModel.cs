@@ -47,7 +47,18 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
         [ObservableProperty]
         private bool isCreating = false;
 
+        [ObservableProperty]
+        public string searchText;
+        [ObservableProperty]
+        private decimal minPrice;
+        [ObservableProperty]
+        private decimal maxPrice;
+
+        [ObservableProperty]
+        public string selectedFilterCriteria;
+
         public ICommand CancelCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
 
         public FootwearCollectionViewModel(BLController blc)
@@ -69,9 +80,57 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
                 {
                     return IsEditing || isCreating;
                 });
-            
+            SearchCommand = new Command(
+                execute: () =>
+                {
+                    if (IsCurrentlyEditing())
+                    {
+                        CancelCommand.Execute(null);
+                    }
+                    
+                    FilterFootwears();
+                    Debug.WriteLine(MaxPrice);
+                    Debug.WriteLine(MinPrice);
+                });
         }
-    
+        
+        private void FilterFootwears()
+        {
+            ReloadFootwears();
+            if (SelectedFilterCriteria == "Name")
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Name.ToLower().Contains(SearchText.ToLower())));
+            }
+            else if (SelectedFilterCriteria == "Sku")
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Sku.ToLower().Contains(SearchText.ToLower())));
+            }
+            else if (SelectedFilterCriteria == "Color")
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Color.ToLower().Contains(SearchText.ToLower())));
+            }
+            else if (SelectedFilterCriteria == "Type")
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Type.ToString().ToLower().Contains(SearchText.ToLower())));
+            }
+            else if (SelectedFilterCriteria == "Producer Name")
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Producer.Name.ToLower().Contains(SearchText.ToLower())));
+            }
+            if (MinPrice > MaxPrice && MaxPrice > 0)
+            {
+                MaxPrice = MinPrice;
+            }
+            if (MaxPrice == 0)
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Price >= MinPrice));
+            }
+            else
+            {
+                Footwears = new ObservableCollection<FootwearViewModel>(Footwears.Where(f => f.Price >= MinPrice && f.Price <= MaxPrice));
+            }
+        }
+
         public void ReloadProducers()
         {
             AllProducers = [.. _blc.GetAllProducers()];
@@ -143,7 +202,6 @@ namespace INF148151_148140.ShoesApp.MAUI.ViewModels
                    FootwearEdit.Name.Length >= 1 &&
                    FootwearEdit.Color != null &&
                    FootwearEdit.Color.Length >=1 &&
-                   FootwearEdit.Price != null &&
                    FootwearEdit.Price >= 0 ;
         }
 

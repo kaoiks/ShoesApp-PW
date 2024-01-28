@@ -29,7 +29,7 @@ namespace INF148151_148140.ShoesApp.DAOSQL
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var configuration = builder.Build();
-            
+
             return new DataContext(configuration);
         }
 
@@ -113,6 +113,7 @@ namespace INF148151_148140.ShoesApp.DAOSQL
                 Type = footwear.Type
             };
         }
+
         public Producer ConvertProducerInterfaceToDAO(IProducer producer)
         {
             return new Producer()

@@ -15,7 +15,6 @@ public partial class FootwearsPage : ContentPage
         {
             if (e.PropertyName == nameof(viewModel.Footwears))
             {
-                // Refresh the ListView when the Producers property changes
                 var updatedFootwears = viewModel.Footwears;
                 FootwearList.ItemsSource = updatedFootwears;
             }
@@ -32,12 +31,6 @@ public partial class FootwearsPage : ContentPage
         (BindingContext as FootwearCollectionViewModel).ReloadProducers();
         (BindingContext as FootwearCollectionViewModel).EditFootwear(footwearViewModel);
         
-    }
-
-    private void FilterCriteriaPicker_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        var selectedFilter = (string)FilterCriteriaPicker.SelectedItem;
-        // You can store or use the selected filter criteria as needed.
     }
 
 }
