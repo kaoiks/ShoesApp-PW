@@ -61,7 +61,7 @@
 
 
         <HorizontalStackLayout >
-            <Button Text="New Footwear" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewProducerCommand}"></Button>
+            <Button Text="New Producer" Margin="10" BackgroundColor="CornflowerBlue" Command="{Binding CreateNewProducerCommand}"></Button>
             <Button Text="Save" Margin="10" BackgroundColor="LightGreen" Command="{Binding SaveProducerCommand}"></Button>
             <Button Text="Delete" Margin="10" BackgroundColor="Red" Command="{Binding DeleteProducerCommand}"></Button>
             <Button Text="Cancel" Margin="10" BackgroundColor="LightSlateGray"  Command="{Binding CancelCommand}"></Button>
